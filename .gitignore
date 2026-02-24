@@ -1,0 +1,31 @@
+# Dependências
+node_modules/
+package-lock.json
+yarn.lock
+
+# Resultados de testes
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Screenshots e vídeos
+screenshots/
+videos/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Variáveis de ambiente
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
