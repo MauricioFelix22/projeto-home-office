@@ -1,15 +1,21 @@
 installation:
-  version: 6.0.0-alpha.23
-  installDate: 2026-01-27T14:16:52.084Z
-  lastUpdated: 2026-01-27T14:16:52.084Z
+  version: 6.0.3
+  installDate: 2026-02-24T22:36:58.170Z
+  lastUpdated: 2026-02-24T22:36:58.171Z
 modules:
-  - core
-  - bmm
+  - name: core
+    version: 6.0.3
+    installDate: 2026-02-24T22:36:58.170Z
+    lastUpdated: 2026-02-24T22:36:58.170Z
+    source: built-in
+    npmPackage: null
+    repoUrl: null
+  - name: bmm
+    version: 6.0.3
+    installDate: 2026-02-24T22:36:57.795Z
+    lastUpdated: 2026-02-24T22:36:58.170Z
+    source: built-in
+    npmPackage: null
+    repoUrl: null
 ides:
-  - claude-code
-  - codex
   - cursor
-  - github-copilot
-  - antigravity
-  - opencode
-  - windsurf

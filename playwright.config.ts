@@ -1,64 +1,53 @@
 import { defineConfig, devices } from '@playwright/test';
+import * as dotenv from 'dotenv';
 
-/**
- * Configuração do Playwright para automação de testes
- * @see https://playwright.dev/docs/test-configuration
- */
+// Carrega variáveis do arquivo .env
+dotenv.config({ path: '.env' });
+
 export default defineConfig({
   testDir: './tests',
-  
-  /* Tempo máximo para executar um teste */
-  timeout: 30 * 1000,
-  
-  /* Tempo de espera para cada ação (click, fill, etc) */
+
+  /* Tempo máximo de execução por teste */
+  timeout: 30000,
+
+  /* Expect timeout */
   expect: {
-    timeout: 5000
-  },
-  
-  /* Executar testes em paralelo */
-  fullyParallel: true,
-  
-  /* Falhar o build se houver testes com only ou skip */
-  forbidOnly: !!process.env.CI,
-  
-  /* Não executar testes em CI se não houver testes */
-  retries: process.env.CI ? 2 : 0,
-  
-  /* Número de workers para execução paralela */
-  workers: process.env.CI ? 1 : undefined,
-  
-  /* Reporter para usar */
-  reporter: [
-    ['html'],
-    ['list'],
-    ['json', { outputFile: 'test-results/results.json' }]
-  ],
-  
-  /* Configurações compartilhadas para todos os projetos */
-  use: {
-    /* URL base para usar em navegação */
-    baseURL: process.env.BASE_URL || 'http://localhost:3000',
-    
-    /* Coletar trace quando retentar o teste falho */
-    trace: 'on-first-retry',
-    
-    /* Screenshot apenas quando falhar */
-    screenshot: 'only-on-failure',
-    
-    /* Video apenas quando falhar */
-    video: 'retain-on-failure',
-    
-    /* Headless mode */
-    headless: true,
-    
-    /* Timeout para ações */
-    actionTimeout: 15000,
-    
-    /* Timeout para navegação */
-    navigationTimeout: 30000,
+    timeout: 15000,
   },
 
-  /* Configurar projetos para diferentes navegadores */
+  /* Executa testes em paralelo */
+  fullyParallel: true,
+
+  /* Falha se existir test.only no código */
+  forbidOnly: !!process.env.CI,
+
+  /* Retries em CI */
+  retries: process.env.CI ? 2 : 0,
+
+  /* Workers */
+  workers: process.env.CI ? 1 : undefined,
+
+  /* Relatório */
+  reporter: 'html',
+
+  /* Configurações padrão de execução */
+  use: {
+    baseURL: 'https://iadashsales.bubbleapps.io',
+
+    // viewport grande para evitar elementos fora da tela
+    viewport: { width: 1920, height: 1080 },
+
+    // grava trace quando falhar
+    trace: 'on-first-retry',
+
+    // screenshot quando falhar
+    screenshot: 'only-on-failure',
+
+    // grava vídeo quando falhar
+    video: 'retain-on-failure',
+  },
+
+  /* Browsers */
   projects: [
     {
       name: 'chromium',
@@ -75,21 +64,14 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
     },
 
-    /* Testes mobile */
     {
       name: 'Mobile Chrome',
       use: { ...devices['Pixel 5'] },
     },
+
     {
       name: 'Mobile Safari',
       use: { ...devices['iPhone 12'] },
     },
   ],
-
-  /* Servidor de desenvolvimento local (opcional) */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
 });
